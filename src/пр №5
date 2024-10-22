@@ -1,1 +1,21 @@
+fn main() {
+    const WIDTH: usize = 30;  
+    const HEIGHT: usize = 15; 
+    let mut result = String::new();
 
+    for i in 0..HEIGHT {
+        for j in 0..WIDTH {
+            if i == 0 || i == HEIGHT - 1 || j == 0 || j == WIDTH - 1 {
+                result.push('*');
+            } else if j == 2 + i * 2 && i < HEIGHT - 1 { 
+                result.push('*');
+            } else if j == WIDTH - 3 - i * 2 && i < HEIGHT - 1 { 
+                result.push('*');
+            } else {
+                result.push(' ');
+            }
+        }
+        result.push('\n'); 
+    }
+    print!("{}", result);
+} 
