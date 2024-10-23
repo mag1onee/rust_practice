@@ -1,0 +1,29 @@
+use std::io;
+
+fn gcd(a: u32, b: u32) -> u32 {
+    let mut a = a;
+    let mut b = b;
+    while b != 0 {
+        let temp = b;
+        b = a % b;
+        a = temp;
+    }
+    a
+}
+
+fn main() {
+    let mut input = String::new();
+
+    println!("Введите первое число:");
+    io::stdin().read_line(&mut input).expect("Ошибка чтения ввода");
+    let a: u32 = input.trim().parse().expect("Введите корректное число");
+
+    input.clear();
+
+    println!("Введите второе число:");
+    io::stdin().read_line(&mut input).expect("Ошибка чтения ввода");
+    let b: u32 = input.trim().parse().expect("Введите корректное число");
+
+    let result = gcd(a, b);
+    println!("Наибольший общий делитель {} и {} = {}", a, b, result);
+}
