@@ -1,0 +1,32 @@
+fn draw_tree(triangle_count: usize) {
+    let width = 1 + 2 * (triangle_count); 
+
+    let triangles = (1..=triangle_count).flat_map(|i| (1..=i).map(move |j| 2 * j - 1));
+
+    for stars_count in triangles {
+        let stars = "*".repeat(stars_count);
+        let padding = " ".repeat((width - stars_count) / 2);
+        println!("{}{}", padding, stars);
+    }
+
+    draw_final_triangle(triangle_count);
+    }
+
+fn draw_final_triangle(triangle_count: usize) {
+    let width = 1 + 2 * (triangle_count); 
+
+    for i in 1..=triangle_count {
+        let stars = "*".repeat(2 * i - 1);
+        let padding = " ".repeat((width - (2 * i - 1)) / 2);
+        println!("{}{}", padding, stars);
+    }
+
+    let stars = "*".repeat(11);
+    let padding = " ".repeat((width - 11) / 2);
+    println!("{}{}", padding, stars);
+}
+
+fn main() {
+    let triangle_count = 5; 
+    draw_tree(triangle_count);
+}
