@@ -1,0 +1,19 @@
+fn invert_case(text: &str) -> String {
+    text.chars()
+        .map(|c| {
+            if c.is_uppercase() {
+                c.to_lowercase().to_string()
+            } else {
+                c.to_uppercase().to_string()
+            }
+        })
+        .collect()
+}
+
+fn main() {
+    let text = "Привіт Світ";
+    println!("Оригінальний текст: {}", text);
+
+    let inverted = invert_case(text);
+    println!("З інвертованим регістром: {}", inverted);
+}
