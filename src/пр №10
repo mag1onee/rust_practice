@@ -1,0 +1,38 @@
+use std::io;
+
+fn rotate(s: String, n: isize) -> String {
+    let len = s.len() as isize;
+    let shift = (n % len + len) % len; // нормалізація зсуву для випадків n > len та від'ємних значень
+    let split_point = len - shift;
+
+    // Розбиваємо рядок на дві частини і з'єднуємо їх у зсунутому порядку
+    format!(
+        "{}{}",
+        &s[split_point as usize..],
+        &s[..split_point as usize]
+    )
+}
+
+fn main() {
+    let mut input_string = String::new();
+    let mut input_shift = String::new();
+
+    println!("Введіть рядок:");
+    io::stdin().read_line(&mut input_string).expect("Помилка зчитування рядка");
+
+    println!("Введіть значення зсуву:");
+    io::stdin().read_line(&mut input_shift).expect("Помилка зчитування числа");
+
+    // Видаляємо зайві пробіли та символи нового рядка
+    let input_string = input_string.trim().to_string();
+    let shift: isize = match input_shift.trim().parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Будь ласка, введіть коректне число.");
+            return;
+        }
+    };
+
+    let result = rotate(input_string.clone(), shift);
+    println!("Результат зсуву: {}", result);
+}
