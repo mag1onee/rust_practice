@@ -1,0 +1,25 @@
+use std::io;
+
+fn is_palindrome(num: i32) -> bool {
+    let s = num.to_string();
+    s.chars().rev().collect::<String>() == s
+}
+
+fn main() {
+    println!("Введіть число:");
+
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).expect("Помилка при зчитуванні числа");
+    
+    // Конвертуємо введення в число
+    match input.trim().parse::<i32>() {
+        Ok(number) => {
+            if is_palindrome(number) {
+                println!("Число {} є паліндромом.", number);
+            } else {
+                println!("Число {} не є паліндромом.", number);
+            }
+        }
+        Err(_) => println!("Будь ласка, введіть коректне ціле число."),
+    }
+}
