@@ -1,0 +1,34 @@
+use std::io;
+
+fn main() {
+    let variables = vec!["m", "u", "x", "a", "s", "l", "o", "n"];
+    let mut values = vec![String::new(); variables.len()];
+
+    for i in 0..variables.len() {
+        println!("Введіть змінну {}: ", variables[i]);
+        io::stdin().read_line(&mut values[i]).expect("Не вдалося прочитати рядок");
+
+        let input = values[i].trim();
+        if input.len() != 1 || !(input.chars().all(|c| c.is_digit(10)) && input.parse::<u32>().unwrap() >= 1 && input.parse::<u32>().unwrap() <= 8) {
+            panic!("Введене значення повинно бути числом від 1 до 8.");
+        }
+    }
+
+    let m = &values[0].trim();
+    let u = &values[1].trim();
+    let x = &values[2].trim();
+    let a = &values[3].trim();
+    let multiplication = "х"; 
+    let s = &values[4].trim();
+    let l = &values[5].trim();
+    let o = &values[6].trim();
+    let n = &values[7].trim();
+
+    println!("    {}{}{}{}", m, u, x, a); 
+    println!(" {}     {}",  multiplication, a); 
+    println!("  ------"); 
+    println!("    {}{}{}{}", s, l, o, n); 
+}
+
+
+5. скільки рішень має задача - 8^8 = 16777216
