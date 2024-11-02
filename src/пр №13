@@ -1,0 +1,91 @@
+пункт 2
+use std::io;
+
+fn count_permutation(shipments: &Vec<u32>) -> usize {
+    let total_weight: u32 = shipments.iter().sum();
+    let n = shipments.len();
+    
+    if total_weight % n as u32 != 0 {
+        return 0;
+    }
+    
+    let target_weight = total_weight / n as u32;
+    let mut excess = 0; 
+    let mut deficit = 0; 
+
+    for &shipment in shipments {
+        if shipment > target_weight {
+            excess += shipment - target_weight;
+        } else {
+            deficit += target_weight - shipment;
+        }
+    }
+
+    excess.max(deficit) as usize
+}
+
+fn main() {
+    let mut shipments = Vec::new();
+    println!("Введіть кількість кораблів:");
+
+    let mut n_input = String::new();
+    io::stdin().read_line(&mut n_input).expect("Не вдалося прочитати рядок");
+    let n: usize = n_input.trim().parse().expect("Будь ласка, введіть число");
+
+    for i in 0..n {
+        println!("Введіть вагу для корабля {}:", i + 1);
+        let mut weight_input = String::new();
+        io::stdin().read_line(&mut weight_input).expect("Не вдалося прочитати рядок");
+        let weight: u32 = weight_input.trim().parse().expect("Будь ласка, введіть число");
+        shipments.push(weight);
+    }
+
+    let moves = count_permutation(&shipments);
+    println!("Мінімальна кількість перенесення: {}", moves);
+}
+
+
+пункт 3
+Щоб дізнатися, чи можна всім кораблям забезпечити однакову кількість вантажу, 
+потрібно врахувати кілька моментів. По-перше, загальна кількість вантажу повинна ділитися на кількість кораблів. 
+Якщо це не так, то, звісно, рівномірно розподілити вантаж неможливо.
+Наприклад, якщо у нас є три кораблі з вантажами 2, 4 і 6 одиниць, то загальна кількість вантажу дорівнює 12. 
+Оскільки 12 ділиться на 3 (число кораблів), ми можемо сказати, що можна розподілити вантаж рівномірно, отримаючи
+по 4 одиниці на кожному кораблі.
+Але якщо, наприклад, загальна кількість вантажу становитиме 11 одиниць, то при трьох кораблях це вже не вийде,
+адже 11 не ділиться на 3. Тож, підсумовуючи, якщо загальна кількість вантажу ділиться на кількість кораблів, 
+то так, можна, а якщо ні — то неможливо.
+
+
+пункт 4
+fn can_distribute_equally(shipments: &[u32]) -> bool
+
+
+пункт 5
+use std::io;
+use rand::Rng;
+
+fn gen_shipments(n: usize) -> Vec<u32> {
+    let total_weight: u32 = rand::thread_rng().gen_range(1..1000); 
+    let equal_weight = total_weight / n as u32;
+
+    let mut shipments: Vec<u32> = vec![equal_weight; n]; 
+
+    let remainder = total_weight % n as u32; 
+    for i in 0..remainder {
+        shipments[i as usize] += 1; 
+    }
+
+    shipments
+}
+
+fn main() {
+    let mut input = String::new();
+    println!("Введіть кількість кораблів:");
+    io::stdin().read_line(&mut input).expect("Не вдалося зчитати рядок");
+    
+    let n: usize = input.trim().parse().expect("Будь ласка, введіть коректне число");
+
+    let shipments = gen_shipments(n); 
+    println!("Вантажі для кораблів: {:?}", shipments); 
+}
